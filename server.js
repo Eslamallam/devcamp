@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const colors = require("colors");
 const fileupload = require("express-fileupload");
+const path = require("path");
 
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
@@ -13,7 +14,7 @@ env.config({ path: "./config/config.env" });
 // Route files
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
-const path = require("path");
+const auth = require("./routes/auth");
 
 // connect to DB
 connectDB();
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/courses", courses);
+app.use("/api/v1/auth", auth);
 
 app.use(errorHandler);
 
